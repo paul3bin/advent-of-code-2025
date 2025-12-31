@@ -19,9 +19,7 @@ func get_input_array() []string {
 	return inputs
 }
 
-func part1() {
-	inputs := get_input_array()
-	dial_pointer := 50
+func part1(inputs []string, dial_pointer int) int {
 	password := 0
 
 	for _, input := range inputs {
@@ -39,12 +37,10 @@ func part1() {
 		}
 	}
 
-	fmt.Println(password)
+	return password
 }
 
-func part2() {
-	inputs := get_input_array()
-	dial_pointer := 50
+func part2(inputs []string, dial_pointer int) int {
 	password := 0
 
 	for _, input := range inputs {
@@ -62,10 +58,12 @@ func part2() {
 		}
 	}
 
-	fmt.Println(password)
+	return password
 }
 
 func main() {
-	part1()
-	part2()
+	inputs := get_input_array()
+	dial_pointer := 50
+	fmt.Printf("Part1 password: %d\n", part1(inputs, dial_pointer))
+	fmt.Printf("Part2 password: %d\n", part2(inputs, dial_pointer))
 }
