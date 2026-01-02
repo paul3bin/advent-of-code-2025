@@ -19,42 +19,56 @@ func get_input_array() []string {
 	return inputs
 }
 
-func part1(inputs []string, dial_pointer int) int {
+func part1(inputs []string, dialPointer int) int {
 	password := 0
 
 	for _, input := range inputs {
-		num, _ := strconv.Atoi(string(input[1:]))
-		if string(input[0]) == "L" {
-			dial_pointer -= num
-		} else if string(input[0]) == "R" {
-			dial_pointer += num
+		steps, _ := strconv.Atoi(string(input[1:]))
+		dir := input[0]
+
+		if dir == 'L' {
+			dialPointer -= steps
+		} else { // R
+			dialPointer += steps
 		}
 
-		dial_pointer %= 100
+		dialPointer %= 100
 
-		if dial_pointer == 0 {
-			password += 1
+		if dialPointer == 0 {
+			password++
 		}
 	}
 
 	return password
 }
 
-func part2(inputs []string, dial_pointer int) int {
+func part2(inputs []string, dialPointer int) int {
 	password := 0
 
 	for _, input := range inputs {
-		num, _ := strconv.Atoi(string(input[1:]))
-		password += int(num / 100)
-		if string(input[0]) == "L" {
-			dial_pointer -= num
-		} else if string(input[0]) == "R" {
-			dial_pointer += num
-		}
-		dial_pointer %= 100
+		steps, _ := strconv.Atoi(input[1:])
+		prev := dialPointer
+		dir := input[0]
 
-		if dial_pointer == 0 {
-			password += 1
+		if steps >= 100 {
+			password += steps / 100
+			steps %= 100
+		}
+
+		if dir == 'L' {
+			dialPointer -= steps
+		} else { // 'R'
+			dialPointer += steps
+		}
+
+		if prev != 0 && (dialPointer < 0 || dialPointer > 100) {
+			password++
+		}
+
+		dialPointer = ((dialPointer % 100) + 100) % 100
+
+		if dialPointer == 0 {
+			password++
 		}
 	}
 
